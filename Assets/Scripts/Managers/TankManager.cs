@@ -6,6 +6,7 @@ namespace Complete
     [Serializable]
     public class TankManager
     {
+        public enum PlayerType {PLAYER,AI};
         // This class is to manage various settings on a tank.
         // It works with the GameManager class to control how the tanks behave
         // and whether or not players have control of their tank in the 
@@ -22,8 +23,7 @@ namespace Complete
         private TankMovement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
         private TankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.
         private GameObject m_CanvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
-
-
+        
         public void Setup()
         {
             // Get references to the components.
@@ -33,7 +33,7 @@ namespace Complete
 
             // Set the player numbers to be consistent across the scripts.
             //if (m_Movement != null)
-                m_Movement.m_PlayerNumber = m_PlayerNumber;
+            m_Movement.m_PlayerNumber = m_PlayerNumber;
 
             m_Shooting.m_PlayerNumber = m_PlayerNumber;
 
