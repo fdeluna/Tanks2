@@ -12,8 +12,9 @@ namespace Complete.FSM
     {
         public State m_CurrentState;        
         public State m_RemainState;
-        
+        public Transform eyes;
         [HideInInspector] public float m_StateTimeElapsed;
+        [HideInInspector] public Transform m_Player;
 
         public bool Active
         {
@@ -36,7 +37,12 @@ namespace Complete.FSM
             }
         }
 
-       public bool m_AIActive = false;
+        public void Awake()
+        {
+            m_CurrentState.StartState(this);
+        }
+
+        public bool m_AIActive = false;
         
         void Update()
         {
@@ -66,6 +72,15 @@ namespace Complete.FSM
         private void OnExitState()
         {
             m_StateTimeElapsed = 0;
+        }
+        
+        void OnDrawGizmos()
+        {
+            if (m_CurrentState != null && eyes != null)
+            {
+                Gizmos.color = m_CurrentState.m_SceneGizmoColor;
+                Gizmos.DrawWireSphere(eyes.position, 1);
+            }
         }
     }
 }

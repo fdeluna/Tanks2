@@ -13,20 +13,15 @@ namespace Complete.FSM.States
         public Action[] m_Actions;
         public Transition[] m_Transitions;
         public Color m_SceneGizmoColor = Color.grey;
-        
+
         private StateController m_StateController;
-        private bool m_initialized = false;
 
         public void StartState(StateController controller)
         {
-            if (!m_initialized)
+            m_StateController = controller;
+            for (int i = 0; i < m_Actions.Length; i++)
             {
-                m_StateController = controller;
-                for (int i = 0; i < m_Actions.Length; i++)
-                {
-                    m_Actions[i].Init(m_StateController);
-                }
-                m_initialized = true;
+                m_Actions[i].Init(m_StateController);
             }
         }
 
@@ -72,4 +67,3 @@ namespace Complete.FSM.States
         }
     }
 }
-    
