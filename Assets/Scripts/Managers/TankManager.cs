@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Complete.FSM;
+using Complete.Tank;
+using System;
 using UnityEngine;
 
-namespace Complete
+namespace Complete.Managers
 {
     [Serializable]
     public class TankManager
@@ -22,20 +24,28 @@ namespace Complete
 
 
         private TankMovement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
+        private StateController m_TankStateController;
         private TankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.
         private GameObject m_CanvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
         
         public void Setup()
         {
             // Get references to the components.
-            m_Movement = m_Instance.GetComponent<TankMovement>();
+            if (m_TankType == TankType.PLAYER)
+            {
+                m_Movement = m_Instance.GetComponent<TankMovement>();
+                // Set the player numbers to be consistent across the scripts.            
+                m_Movement.m_PlayerNumber = m_PlayerNumber;
+            }
+            else
+            {
+                m_TankStateController = m_Instance.GetComponent<StateController>();
+            }
+
             m_Shooting = m_Instance.GetComponent<TankShooting>();
             m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas>().gameObject;
 
-            // Set the player numbers to be consistent across the scripts.
-            //if (m_Movement != null)
-            m_Movement.m_PlayerNumber = m_PlayerNumber;
-
+            // Set the player numbers to be consistent across the scripts.                        
             m_Shooting.m_PlayerNumber = m_PlayerNumber;
 
             // Create a string using the correct color that says 'PLAYER 1' etc based on the tank's color and the player's number.
@@ -56,11 +66,16 @@ namespace Complete
         // Used during the phases of the game where the player shouldn't be able to control their tank.
         public void DisableControl()
         {
-            //if(m_Movement != null)
+            if (m_TankType == TankType.PLAYER)
+            {
                 m_Movement.enabled = false;
-
-            m_Shooting.enabled = false;
-
+                m_Shooting.enabled = false;
+            }
+            else
+            {
+                m_TankStateController.Active = false;
+            }
+            
             m_CanvasGameObject.SetActive(false);
         }
 
@@ -68,10 +83,15 @@ namespace Complete
         // Used during the phases of the game where the player should be able to control their tank.
         public void EnableControl()
         {
-            //if (m_Movement != null)
+            if (m_TankType == TankType.PLAYER)
+            {
                 m_Movement.enabled = true;
-
-            m_Shooting.enabled = true;
+                m_Shooting.enabled = true;
+            }
+            else
+            {
+                m_TankStateController.Active = true;
+            }
 
             m_CanvasGameObject.SetActive(true);
         }

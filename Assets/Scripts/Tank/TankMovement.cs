@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-namespace Complete
+namespace Complete.Tank
 {
     public class TankMovement : MonoBehaviour
     {        
@@ -12,9 +12,7 @@ namespace Complete
         public AudioClip m_EngineIdling;            // Audio to play when the tank isn't moving.
         public AudioClip m_EngineDriving;           // Audio to play when the tank is moving.
         public float m_PitchRange = 0.2f;           // The amount by which the pitch of the engine noises can vary.        
-
-        
-        
+                
         protected Rigidbody m_Rigidbody;              // Reference used to move the tank.        
         protected Vector3 m_Velocity;
         protected bool m_Moving = false;
@@ -65,7 +63,7 @@ namespace Complete
             EngineAudio();
         }
 
-        // TODO ADAT TO PLAYER/IA
+        
         private void EngineAudio()
         {
             //// If there is no input (the tank is stationary)...

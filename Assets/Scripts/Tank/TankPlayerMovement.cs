@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Complete
+namespace Complete.Tank
 {
     public class TankPlayerMovement : TankMovement
     {

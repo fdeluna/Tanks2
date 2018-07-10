@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using Complete.Utils;
+using UnityEngine;
 using UnityEngine.AI;
-using Utils;
 
-namespace Complete
+namespace Complete.Tank
 {
     public class TankAIMovement : TankMovement
     {                
@@ -12,22 +12,18 @@ namespace Complete
         protected override void Awake()
         {
             base.Awake();
-            m_NavMeshAgent = GetComponent<NavMeshAgent>();            
+            Debug.Log("AWAKE");
+            m_NavMeshAgent = GetComponent<NavMeshAgent>();
+            
         }
 
-        private void FixedUpdate()
-        {
-            // Adjust the rigidbodies position and orientation in FixedUpdate.
-            Patrol();
-        }
-
-        private void Patrol()
+        public void Patrol(float minRange = 0, float maxRange = 0)
         {
             m_Moving = m_NavMeshAgent.velocity.magnitude > 0 ? true : false;
-            // Apply this movement to the rigidbody's position.                        
+            
             if (m_NavMeshAgent.remainingDistance <= m_NavMeshAgent.stoppingDistance + 2 && !m_NavMeshAgent.pathPending)                
             {                
-                m_DesiredPosition = m_NavMeshAgent.RandomPoint(20,40);
+                m_DesiredPosition = m_NavMeshAgent.RandomPoint(minRange, maxRange);
                 
                 // Clamp movement to viewport
                 Vector3 viewPosition = Camera.main.WorldToViewportPoint(m_DesiredPosition);

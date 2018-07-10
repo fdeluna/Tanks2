@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-namespace Utils
+namespace Complete.Utils
 {
     public static class Utils
     {

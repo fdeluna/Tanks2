@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Complete
+namespace Complete.Controllers
 {
     public class CameraControl : MonoBehaviour
     {

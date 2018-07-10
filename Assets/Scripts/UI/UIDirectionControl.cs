@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Complete
+namespace Complete.UI
 {
     public class UIDirectionControl : MonoBehaviour
     {
