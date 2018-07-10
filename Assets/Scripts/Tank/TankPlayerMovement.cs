@@ -24,7 +24,7 @@ namespace Complete
             // Store the value of both input axes.
             m_MovementInputValue = Input.GetAxis(m_MovementAxisName);
             m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
-
+            m_Moving = Mathf.Abs(m_MovementInputValue) < 0.1f && Mathf.Abs(m_TurnInputValue) < 0.1f ? true : false;
             base.Update();
         }
 
@@ -49,8 +49,7 @@ namespace Complete
 
 
         private  void Move()
-        {
-            m_Moving = Mathf.Abs(m_MovementInputValue) < 0.1f && Mathf.Abs(m_TurnInputValue) < 0.1f ? true : false;
+        {            
             // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
             Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
 

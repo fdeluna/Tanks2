@@ -12,10 +12,9 @@ namespace Complete
         public float m_EndDelay = 3f;               // The delay between the end of RoundPlaying and RoundEnding phases.
         public CameraControl m_CameraControl;       // Reference to the CameraControl script for control during different phases.
         public Text m_MessageText;                  // Reference to the overlay Text to display winning text, etc.
-        public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
+        public GameObject m_TankPlayerPrefab;             // Reference to the prefab the players will control.
         public GameObject m_TankAIPrefab;             // Reference to the prefab the players will control.
         public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
-
         
         private int m_RoundNumber;                  // Which round the game is currently on.
         private WaitForSeconds m_StartWait;         // Used to have a delay whilst the round starts.
@@ -37,27 +36,18 @@ namespace Complete
             StartCoroutine (GameLoop ());
         }
 
-
         private void SpawnAllTanks()
-        {
-            m_Tanks[0].m_Instance =
-                    Instantiate(m_TankPrefab, m_Tanks[0].m_SpawnPoint.position, m_Tanks[0].m_SpawnPoint.rotation) as GameObject;
-            m_Tanks[0].m_PlayerNumber = 1;
-            m_Tanks[0].Setup();
-
-            m_Tanks[1].m_Instance =
-                    Instantiate(m_TankAIPrefab, m_Tanks[1].m_SpawnPoint.position, m_Tanks[1].m_SpawnPoint.rotation) as GameObject;
-            m_Tanks[0].m_PlayerNumber = 2;
-            m_Tanks[1].Setup();
+        {            
             // For all the tanks...
-            //for (int i = 0; i < m_Tanks.Length; i++)
-            //{
-            //    // ... create them, set their player number and references needed for control.
-            //    m_Tanks[i].m_Instance =
-            //        Instantiate(m_TankPrefab, m_Tanks[i].m_SpawnPoint.position, m_Tanks[i].m_SpawnPoint.rotation) as GameObject;
-            //    m_Tanks[i].m_PlayerNumber = i + 1;
-            //    m_Tanks[i].Setup();
-            //}
+            for (int i = 0; i < m_Tanks.Length; i++)
+            {
+                GameObject tankPrefab = m_Tanks[i].m_TankType == TankManager.TankType.PLAYER ? m_TankPlayerPrefab : m_TankAIPrefab;
+                // ... create them, set their player number and references needed for control.
+                m_Tanks[i].m_Instance = 
+                    Instantiate(tankPrefab, m_Tanks[i].m_SpawnPoint.position, m_Tanks[i].m_SpawnPoint.rotation) as GameObject;
+                m_Tanks[i].m_PlayerNumber = i + 1;
+                m_Tanks[i].Setup();
+            }
         }
 
 
