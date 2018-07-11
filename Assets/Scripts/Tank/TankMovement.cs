@@ -13,8 +13,7 @@ namespace Complete.Tank
         public AudioClip m_EngineDriving;           // Audio to play when the tank is moving.
         public float m_PitchRange = 0.2f;           // The amount by which the pitch of the engine noises can vary.        
                 
-        protected Rigidbody m_Rigidbody;              // Reference used to move the tank.        
-        protected Vector3 m_Velocity;
+        protected Rigidbody m_Rigidbody;              // Reference used to move the tank.                
         protected bool m_Moving = false;
         private float m_OriginalPitch;              // The pitch of the audio source at the start of the scene.
         private ParticleSystem[] m_particleSystems; // References to all the particles systems used by the Tanks        

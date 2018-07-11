@@ -62,8 +62,7 @@ namespace Complete.Tank
             viewPosition.y = Mathf.Clamp(viewPosition.y, 0.05f, 0.95f);
             desiredPosition = Camera.main.ViewportToWorldPoint(viewPosition);
 
-            m_Rigidbody.MovePosition(desiredPosition);
-            m_Velocity = m_Rigidbody.velocity;
+            m_Rigidbody.MovePosition(desiredPosition);            
         }
 
 
