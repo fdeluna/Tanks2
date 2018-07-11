@@ -10,11 +10,12 @@ namespace Complete.FSM
 {
     public class StateController : MonoBehaviour
     {
-        public State m_CurrentState;        
+        public State m_InitialState;
+        public State m_CurrentState;
         public State m_RemainState;
         public Transform eyes;
         [HideInInspector] public float m_StateTimeElapsed;
-        [HideInInspector] public Transform m_Player;
+        [HideInInspector] public Transform m_TargetTransform;
 
         public bool Active
         {
@@ -42,13 +43,18 @@ namespace Complete.FSM
             m_CurrentState.StartState(this);
         }
 
+        private void OnDisable()
+        {
+            m_CurrentState = m_InitialState;
+        }
+
         public bool m_AIActive = false;
-        
+
         void Update()
         {
             if (!m_AIActive)
                 return;
-            
+
             m_CurrentState.UpdateState();
         }
 
@@ -73,7 +79,7 @@ namespace Complete.FSM
         {
             m_StateTimeElapsed = 0;
         }
-        
+
         void OnDrawGizmos()
         {
             if (m_CurrentState != null && eyes != null)

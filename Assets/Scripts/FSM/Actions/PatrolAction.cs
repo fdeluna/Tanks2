@@ -15,8 +15,7 @@ namespace Complete.FSM.Actions
         private TankAIMovement m_TankAIMovement;
 
         public override void Init(StateController controller)
-        {
-            Debug.Log("init");
+        {            
             m_TankAIMovement = controller.gameObject.GetComponent<TankAIMovement>();
         }
 

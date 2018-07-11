@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Complete
+namespace Complete.Tank
 {
     public class TankShooting : MonoBehaviour
     {
@@ -53,6 +53,13 @@ namespace Complete
 
             // Reset the launch force.  This is a precaution in case of missing button events.
             m_CurrentLaunchForce = m_MinLaunchForce;
+        }
+
+        protected void PlaySFX()
+        {
+            // Change the clip to the charging clip and start it playing.
+            m_ShootingAudio.clip = m_ChargingClip;
+            m_ShootingAudio.Play();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Complete.FSM.States
         {
             m_StateController = controller;
             for (int i = 0; i < m_Actions.Length; i++)
-            {
+            {                
                 m_Actions[i].Init(m_StateController);
             }
         }

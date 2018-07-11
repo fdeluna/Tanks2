@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Complete
+namespace Complete.Tank
 {
     public class TankPlayerShooting : TankShooting
     {        
@@ -34,9 +34,7 @@ namespace Complete
                 m_Fired = false;
                 m_CurrentLaunchForce = m_MinLaunchForce;
 
-                // Change the clip to the charging clip and start it playing.
-                m_ShootingAudio.clip = m_ChargingClip;
-                m_ShootingAudio.Play();
+                PlaySFX();
             }
             // Otherwise, if the fire button is being held and the shell hasn't been launched yet...
             else if (Input.GetButton(m_FireButton) && !m_Fired)
