@@ -4,6 +4,8 @@
  **/
 
 using Complete.FSM.States;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Complete.FSM
@@ -17,6 +19,8 @@ namespace Complete.FSM
         [HideInInspector] public float m_StateTimeElapsed;
         [HideInInspector] public Transform m_TargetTransform;
 
+        private Dictionary<String, State> m_States = new Dictionary<String, State>();
+
         public bool Active
         {
             get
@@ -29,7 +33,6 @@ namespace Complete.FSM
 
                 if (m_AIActive)
                 {
-                    m_CurrentState.StartState(this);
                 }
                 else
                 {
@@ -40,12 +43,12 @@ namespace Complete.FSM
 
         public void Awake()
         {
-            m_CurrentState.StartState(this);
+            m_CurrentState = GetState(m_InitialState);
         }
 
         private void OnDisable()
         {
-            m_CurrentState = m_InitialState;
+            m_CurrentState = GetState(m_InitialState);
         }
 
         public bool m_AIActive = false;
@@ -63,8 +66,8 @@ namespace Complete.FSM
             if (nextState != m_RemainState)
             {
                 m_CurrentState.StopState();
-                m_CurrentState = nextState;
-                m_CurrentState.StartState(this);
+                m_CurrentState = GetState(nextState);
+
                 OnExitState();
             }
         }
@@ -87,6 +90,27 @@ namespace Complete.FSM
                 Gizmos.color = m_CurrentState.m_SceneGizmoColor;
                 Gizmos.DrawWireSphere(eyes.position, 1);
             }
+        }
+
+        private State GetState(State stateType)
+        {
+            State state = null;
+            if (m_States.ContainsKey(stateType.name))
+            {
+                m_States.TryGetValue(stateType.name, out state);
+            }
+            else
+            {
+                
+                state = Instantiate(stateType);
+                state.name = stateType.name;
+                Debug.Log(state.name);
+                state.Init(this);
+
+                m_States.Add(stateType.name, state);
+            }
+
+            return state;
         }
     }
 }

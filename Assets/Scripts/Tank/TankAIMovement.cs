@@ -17,7 +17,7 @@ namespace Complete.Tank
 
         protected override void Update()
         {
-            m_Moving = m_NavMeshAgent.velocity.magnitude > 0 ? true : false;
+            m_Moving = m_NavMeshAgent.velocity.magnitude > 0 ? true : false;            
         }
 
         public void Patrol(float minRange = 0, float maxRange = 0)
@@ -29,11 +29,11 @@ namespace Complete.Tank
                 // Clamp movement to viewport
                 Vector3 viewPosition = Camera.main.WorldToViewportPoint(m_DesiredPosition);
                 viewPosition.x = Mathf.Clamp(viewPosition.x, 0.2f, 0.8f);
-                viewPosition.y = Mathf.Clamp(viewPosition.y, 0.2f, 0.8f);
+                viewPosition.y = Mathf.Clamp(viewPosition.y, 0.2f, 0.8f);                
                 m_DesiredPosition = Camera.main.ViewportToWorldPoint(viewPosition);
                 m_DesiredPosition.y = 0;
-
-                m_NavMeshAgent.SetDestination(m_DesiredPosition);
+                
+                m_NavMeshAgent.SetDestination(m_DesiredPosition);                
             }
         }
 

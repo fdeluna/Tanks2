@@ -9,6 +9,6 @@ namespace Complete.FSM.Actions
     public abstract class Action : ScriptableObject
     {
         public abstract void Init(StateController controller);
-        public abstract void Act();
+        public abstract void Act();        
     }
 }

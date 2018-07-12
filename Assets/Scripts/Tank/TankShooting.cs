@@ -28,6 +28,11 @@ namespace Complete.Tank
             m_AimSlider.value = m_MinLaunchForce;
         }
 
+        private void OnDisable()
+        {
+            m_Fired = false;
+        }
+
 
         protected virtual  void Start ()
         {            

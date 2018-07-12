@@ -13,6 +13,7 @@ namespace Complete.FSM.Decisions
 
         public override bool Decide(StateController controller)
         {
+            playerDetected = false;
             Collider[] targetsInViewRadius = Physics.OverlapSphere(controller.eyes.position, m_Range, targetMask);
 
             for (int i = 0; i < targetsInViewRadius.Length; i++)
@@ -29,7 +30,8 @@ namespace Complete.FSM.Decisions
                     if (playerDetected)
                     {
                         Debug.DrawRay(controller.eyes.position, dirToTarget * dstToTarget, Color.green);
-                        controller.m_TargetTransform = controller.transform;
+                        controller.m_TargetTransform = target;
+                        break;
                     }
                 }
             }

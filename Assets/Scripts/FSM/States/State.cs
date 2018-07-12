@@ -16,12 +16,18 @@ namespace Complete.FSM.States
 
         private StateController m_StateController;
 
-        public void StartState(StateController controller)
+                
+        public void Init(StateController controller)
         {
+            for (int i = 0; i < m_Actions.Length; i++)
+            {
+                m_Actions[i] = Instantiate(m_Actions[i]);
+            }            
+
             m_StateController = controller;
             for (int i = 0; i < m_Actions.Length; i++)
-            {                
-                m_Actions[i].Init(m_StateController);
+            {
+                m_Actions[i].Init(controller);
             }
         }
 

@@ -22,6 +22,6 @@ namespace Complete.FSM.Actions
         public override void Act()
         {
             m_TankAIMovement.Patrol(m_MinRange, m_MaxRange);
-        }                
+        }        
     }
 }
