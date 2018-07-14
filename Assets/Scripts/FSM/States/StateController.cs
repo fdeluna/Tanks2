@@ -13,8 +13,7 @@ namespace Complete.FSM
     public class StateController : MonoBehaviour
     {
         public State m_InitialState;
-        public State m_CurrentState;
-        public State m_RemainState;
+        public State m_CurrentState;        
         public Transform eyes;
         [HideInInspector] public float m_StateTimeElapsed;
         [HideInInspector] public Transform m_TargetTransform;
@@ -63,7 +62,7 @@ namespace Complete.FSM
 
         public void TransitionToState(State nextState)
         {
-            if (nextState != m_RemainState)
+            if (nextState != m_CurrentState)
             {
                 m_CurrentState.StopState();
                 m_CurrentState = GetState(nextState);
@@ -74,8 +73,15 @@ namespace Complete.FSM
 
         public bool CheckIfCountDownElapsed(float duration)
         {
+            bool countDownElapser = false;
             m_StateTimeElapsed += Time.deltaTime;
-            return (m_StateTimeElapsed >= duration);
+
+            countDownElapser = m_StateTimeElapsed >= duration;
+
+            if (countDownElapser)
+                m_StateTimeElapsed = 0;
+
+            return countDownElapser;
         }
 
         private void OnExitState()
@@ -101,10 +107,9 @@ namespace Complete.FSM
             }
             else
             {
-                
+
                 state = Instantiate(stateType);
                 state.name = stateType.name;
-                Debug.Log(state.name);
                 state.Init(this);
 
                 m_States.Add(stateType.name, state);

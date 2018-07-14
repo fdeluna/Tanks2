@@ -6,6 +6,10 @@ namespace Complete.Tank
 {
     public class TankAIMovement : TankMovement
     {
+
+        // TODO BORRAR
+        public Transform player;
+
         private NavMeshAgent m_NavMeshAgent;
         private Vector3 m_DesiredPosition;
 
@@ -13,33 +17,42 @@ namespace Complete.Tank
         {
             base.Awake();
             m_NavMeshAgent = GetComponent<NavMeshAgent>();
+            m_NavMeshAgent.speed = m_Speed;
+            m_NavMeshAgent.angularSpeed = m_TurnSpeed;
         }
 
         protected override void Update()
         {
-            m_Moving = m_NavMeshAgent.velocity.magnitude > 0 ? true : false;            
+            m_Moving = m_NavMeshAgent.velocity.magnitude > 0 ? true : false;
         }
 
-        public void Patrol(float minRange = 0, float maxRange = 0)
+        public void Patrol(float minRange = 0, float maxRange = 0, Transform target = null)
         {
-            if (m_NavMeshAgent.remainingDistance <= m_NavMeshAgent.stoppingDistance + 2 && !m_NavMeshAgent.pathPending)
+            if (m_NavMeshAgent.remainingDistance <= m_NavMeshAgent.stoppingDistance)
             {
-                m_DesiredPosition = m_NavMeshAgent.RandomPointAroundTarget(minRange, maxRange);
+                m_DesiredPosition = m_NavMeshAgent.RandomPointAroundTarget(minRange, maxRange, target);
 
-                // Clamp movement to viewport
-                Vector3 viewPosition = Camera.main.WorldToViewportPoint(m_DesiredPosition);
-                viewPosition.x = Mathf.Clamp(viewPosition.x, 0.2f, 0.8f);
-                viewPosition.y = Mathf.Clamp(viewPosition.y, 0.2f, 0.8f);                
-                m_DesiredPosition = Camera.main.ViewportToWorldPoint(viewPosition);
-                m_DesiredPosition.y = 0;
-                
-                m_NavMeshAgent.SetDestination(m_DesiredPosition);                
+                m_NavMeshAgent.SetDestination(m_DesiredPosition.ClampVector3ToViewPort(Camera.main, m_MinMargin, m_MaxMargin));
             }
         }
 
+        public void Stop(bool stop)
+        {
+            m_NavMeshAgent.isStopped = stop;
+            m_NavMeshAgent.ResetPath();
+        }
+
         public void Chase(Transform target)
-        {                       
-            m_NavMeshAgent.SetDestination(target.position);
+        {
+            if (!m_NavMeshAgent.pathPending)
+            {
+                m_NavMeshAgent.SetDestination(target.position);
+            }
+            else
+            {
+                Patrol(5, 10, target);
+            }
+            
         }
 
         private void OnDrawGizmos()

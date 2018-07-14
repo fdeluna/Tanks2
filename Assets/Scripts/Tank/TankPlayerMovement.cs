@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using Complete.Utils;
+using UnityEngine;
 
 namespace Complete.Tank
 {
     public class TankPlayerMovement : TankMovement
     {
+        public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
+
         private string m_MovementAxisName;          // The name of the input axis for moving forward and back.
         private string m_TurnAxisName;              // The name of the input axis for turning.
 
@@ -56,13 +59,7 @@ namespace Complete.Tank
             // Apply this movement to the rigidbody's position.
             Vector3 desiredPosition = m_Rigidbody.position + movement;
 
-            // Clamp movement to viewport
-            Vector3 viewPosition = Camera.main.WorldToViewportPoint(desiredPosition);
-            viewPosition.x = Mathf.Clamp(viewPosition.x, 0.05f, 0.95f);
-            viewPosition.y = Mathf.Clamp(viewPosition.y, 0.05f, 0.95f);
-            desiredPosition = Camera.main.ViewportToWorldPoint(viewPosition);
-
-            m_Rigidbody.MovePosition(desiredPosition);            
+            m_Rigidbody.MovePosition(desiredPosition.ClampVector3ToViewPort(Camera.main, m_MinMargin,m_MaxMargin));            
         }
 
 

@@ -19,5 +19,15 @@ namespace Complete.Utils
 
             return hit.position;
         }
+
+        public static Vector3 ClampVector3ToViewPort(this Vector3 vector3,Camera camera, float minMargin, float maxMargin)
+        {
+            Vector3 viewPosition = camera.WorldToViewportPoint(vector3);
+            viewPosition.x = Mathf.Clamp(viewPosition.x, minMargin, maxMargin);
+            viewPosition.y = Mathf.Clamp(viewPosition.y, minMargin, maxMargin);
+            vector3 = camera.ViewportToWorldPoint(viewPosition);
+            
+            return vector3;
+        }
     }
 }

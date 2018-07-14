@@ -10,7 +10,7 @@ namespace Complete.FSM.States
     [CreateAssetMenu(menuName = "PluggableAI/State")]
     public class State : ScriptableObject
     {
-        public Action[] m_Actions;
+        public StateAction[] m_Actions;
         public Transition[] m_Transitions;
         public Color m_SceneGizmoColor = Color.grey;
 
@@ -30,7 +30,10 @@ namespace Complete.FSM.States
 
         public void StopState()
         {
-
+            for (int i = 0; i < m_Actions.Length; i++)
+            {
+                m_Actions[i].EndAction();
+            }
         }
 
         public void UpdateState()

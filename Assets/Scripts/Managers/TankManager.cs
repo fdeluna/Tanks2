@@ -8,11 +8,12 @@ namespace Complete.Managers
     [Serializable]
     public class TankManager
     {
-        public enum TankType {PLAYER,AI};
         // This class is to manage various settings on a tank.
         // It works with the GameManager class to control how the tanks behave
         // and whether or not players have control of their tank in the 
         // different phases of the game.
+
+        public enum TankType { PLAYER, AI };
 
         public Color m_PlayerColor;                             // This is the color this tank will be tinted.
         public Transform m_SpawnPoint;                          // The position and direction the tank will have when it spawns.
@@ -23,7 +24,7 @@ namespace Complete.Managers
         [HideInInspector] public int m_Wins;                    // The number of wins this player has so far.
 
 
-        private TankMovement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
+        private TankPlayerMovement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
         private StateController m_TankStateController;
         private TankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.
         private GameObject m_CanvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
@@ -33,7 +34,7 @@ namespace Complete.Managers
             // Get references to the components.
             if (m_TankType == TankType.PLAYER)
             {
-                m_Movement = m_Instance.GetComponent<TankMovement>();
+                m_Movement = m_Instance.GetComponent<TankPlayerMovement>();
                 // Set the player numbers to be consistent across the scripts.            
                 m_Movement.m_PlayerNumber = m_PlayerNumber;
             }

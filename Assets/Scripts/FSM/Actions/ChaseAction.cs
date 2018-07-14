@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Complete.FSM.Actions
 {
     [CreateAssetMenu(menuName = "PluggableAI/Actions/ChaseAction")]
-    public class ChaseAction : Action
+    public class ChaseAction : StateAction
     {
         private TankAIMovement m_TankAIMovement;
         private Transform target;
@@ -16,8 +16,13 @@ namespace Complete.FSM.Actions
         }
 
         public override void Act()
-        {
+        {           
             m_TankAIMovement.Chase(target);
+        }
+
+        public override void EndAction()
+        {
+            
         }
     }
 }
