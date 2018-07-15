@@ -74,7 +74,7 @@ namespace Complete.Managers
             }
             else
             {
-                m_TankStateController.Active = false;
+                m_TankStateController.enabled = false;
             }
             
             m_CanvasGameObject.SetActive(false);
@@ -91,7 +91,7 @@ namespace Complete.Managers
             }
             else
             {
-                m_TankStateController.Active = true;
+                m_TankStateController.enabled = true;
             }
 
             m_CanvasGameObject.SetActive(true);

@@ -10,12 +10,12 @@ namespace Complete.Tank
 
         private float m_fireForce = 0;
 
-        public void Shoot(float minForce, float maxForce)
+        public void Shoot(float force)
         {
             if (!m_Fired)
             {
                 m_Fired = true;
-                m_fireForce = Random.Range(minForce, maxForce);
+                m_fireForce = Mathf.Clamp(force, m_MinLaunchForce, m_MaxLaunchForce);
                 StartCoroutine(FireCO());
             }
         }

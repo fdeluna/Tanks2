@@ -31,8 +31,7 @@ namespace Complete.FSM.Decisions
                     dirToTarget.y = 0;
                     if (Vector3.Angle(controller.eyes.forward, dirToTarget) < m_ViewAngle / 2)
                     {
-                        float dstToTarget = Vector3.Distance(controller.eyes.position, target.position);
-                        Debug.Log(dstToTarget);
+                        float dstToTarget = Vector3.Distance(controller.eyes.position, target.position);                        
                         m_PlayerDetected = !Physics.Raycast(controller.eyes.position, dirToTarget, dstToTarget, m_ObstacleMask);
                         Debug.DrawRay(controller.eyes.position, dirToTarget * dstToTarget, Color.red);
                         if (m_PlayerDetected)

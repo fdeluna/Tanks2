@@ -13,32 +13,12 @@ namespace Complete.FSM
     public class StateController : MonoBehaviour
     {
         public State m_InitialState;
-        public State m_CurrentState;        
+        public State m_CurrentState;
         public Transform eyes;
         [HideInInspector] public float m_StateTimeElapsed;
         [HideInInspector] public Transform m_TargetTransform;
 
         private Dictionary<String, State> m_States = new Dictionary<String, State>();
-
-        public bool Active
-        {
-            get
-            {
-                return m_AIActive;
-            }
-            set
-            {
-                m_AIActive = value;
-
-                if (m_AIActive)
-                {
-                }
-                else
-                {
-                    m_CurrentState.StopState();
-                }
-            }
-        }
 
         public void Awake()
         {
@@ -95,7 +75,7 @@ namespace Complete.FSM
             {
                 Gizmos.color = m_CurrentState.m_SceneGizmoColor;
                 Gizmos.DrawWireSphere(eyes.position, 1);
-                if(m_TargetTransform != null)
+                if (m_TargetTransform != null)
                     Gizmos.DrawWireSphere(m_TargetTransform.position, 1);
             }
         }

@@ -7,7 +7,8 @@ namespace Complete.FSM.Actions
     [CreateAssetMenu(menuName = "PluggableAI/Actions/ShootAction")]
     public class ShootAction : StateAction
     {
-        public float m_AttackRange;        
+        public float m_AttackRange;
+        public LayerMask m_TargetMask;
 
         private TankAIShooting m_TankShooting;
         private StateController m_StateController;
@@ -19,23 +20,17 @@ namespace Complete.FSM.Actions
 
         public override void Act(StateController controller)
         {
-            //RaycastHit hit;
-
-            //Debug.DrawRay(m_StateController.eyes.position, m_StateController.eyes.forward.normalized * m_AttackRange, Color.red);
-
-            //if (Physics.SphereCast(m_StateController.eyes.position,2, m_StateController.eyes.forward, out hit, m_AttackRange)
-            //    && hit.collider.CompareTag("Player"))
-            //{
-            //    if (controller.CheckIfCountDownElapsed(controller.enemyStats.attackRate))
-            //    {
-            //        controller.tankShooting.Fire(controller.enemyStats.attackForce, controller.enemyStats.attackRate);
-            //    }
-            //}
+            RaycastHit hit;
+            if (Physics.SphereCast(controller.eyes.position, 2, controller.eyes.forward, out hit, m_AttackRange, m_TargetMask))
+            {
+                m_TankShooting.Shoot(Vector3.Distance(hit.transform.position, controller.transform.position));
+                Debug.DrawRay(controller.eyes.position, controller.eyes.forward.normalized * m_AttackRange, Color.red);
+            }
 
         }
 
         public override void EndAction(StateController controller)
-        {            
+        {
         }
     }
 }
