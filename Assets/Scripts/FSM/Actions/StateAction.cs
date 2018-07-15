@@ -11,8 +11,8 @@ namespace Complete.FSM.Actions
     public abstract class StateAction : ScriptableObject
     {
         public abstract void Init(StateController controller);
-        public abstract void Act();
-        public abstract void EndAction();
+        public abstract void Act(StateController controller);
+        public abstract void EndAction(StateController controller);
 
 
         protected IEnumerator WaitSecondsAction(float seconds, Action callBack = null)

@@ -62,12 +62,12 @@ namespace Complete.FSM
 
         public void TransitionToState(State nextState)
         {
-            if (nextState != m_CurrentState)
+            if (nextState != null && nextState != m_CurrentState)
             {
                 m_CurrentState.StopState();
                 m_CurrentState = GetState(nextState);
 
-                OnExitState();
+                ResetStateTimeElapsed();
             }
         }
 
@@ -84,7 +84,7 @@ namespace Complete.FSM
             return countDownElapser;
         }
 
-        private void OnExitState()
+        public void ResetStateTimeElapsed()
         {
             m_StateTimeElapsed = 0;
         }
@@ -95,6 +95,8 @@ namespace Complete.FSM
             {
                 Gizmos.color = m_CurrentState.m_SceneGizmoColor;
                 Gizmos.DrawWireSphere(eyes.position, 1);
+                if(m_TargetTransform != null)
+                    Gizmos.DrawWireSphere(m_TargetTransform.position, 1);
             }
         }
 

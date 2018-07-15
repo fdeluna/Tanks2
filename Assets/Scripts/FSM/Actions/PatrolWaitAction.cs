@@ -12,26 +12,24 @@ namespace Complete.FSM.Actions
         public float m_MaxTimeWait = 4;
 
         private TankAIMovement m_TankAIMovement;
-        private StateController m_StateController;
         private bool m_Waiting = false;
         private float m_WaitTime = 0f;
 
         public override void Init(StateController controller)
         {
-            m_StateController = controller;
             m_TankAIMovement = controller.gameObject.GetComponent<TankAIMovement>();
             m_WaitTime = Random.Range(m_MinTimeWait, m_MaxTimeWait);
         }
 
-        public override void Act()
+        public override void Act(StateController controller)
         {
             if (!m_Waiting)
             {
-                if (m_StateController.CheckIfCountDownElapsed(m_WaitTime))
+                if (controller.CheckIfCountDownElapsed(m_WaitTime))
                 {                    
                     m_TankAIMovement.Stop(true);
                     m_Waiting = true;
-                    m_StateController.StartCoroutine(WaitSecondsAction(Random.Range(1, 2), () =>
+                    controller.StartCoroutine(WaitSecondsAction(Random.Range(1, 2), () =>
                     {
                         m_Waiting = false;
                         m_TankAIMovement.Stop(false);
@@ -46,7 +44,7 @@ namespace Complete.FSM.Actions
             }
         }
 
-        public override void EndAction()
+        public override void EndAction(StateController controller)
         {
             m_TankAIMovement.Stop(true);
         }

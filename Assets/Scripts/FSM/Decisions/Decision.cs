@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Complete.FSM.Decisions
 {    
     public abstract class Decision : ScriptableObject
-    {
+    {       
         public abstract bool Decide(StateController controller);
     }
 }

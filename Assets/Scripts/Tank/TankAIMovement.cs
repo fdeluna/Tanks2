@@ -6,10 +6,6 @@ namespace Complete.Tank
 {
     public class TankAIMovement : TankMovement
     {
-
-        // TODO BORRAR
-        public Transform player;
-
         private NavMeshAgent m_NavMeshAgent;
         private Vector3 m_DesiredPosition;
 
@@ -44,15 +40,7 @@ namespace Complete.Tank
 
         public void Chase(Transform target)
         {
-            if (!m_NavMeshAgent.pathPending)
-            {
-                m_NavMeshAgent.SetDestination(target.position);
-            }
-            else
-            {
-                Patrol(5, 10, target);
-            }
-            
+            m_NavMeshAgent.SetDestination(target.position);                   
         }
 
         private void OnDrawGizmos()

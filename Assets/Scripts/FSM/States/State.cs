@@ -16,23 +16,22 @@ namespace Complete.FSM.States
 
         private StateController m_StateController;
 
-                
+
         public void Init(StateController controller)
         {
-            m_StateController = controller;            
+            m_StateController = controller;
             for (int i = 0; i < m_Actions.Length; i++)
             {
                 m_Actions[i] = Instantiate(m_Actions[i]);
                 m_Actions[i].Init(controller);
-            }            
-
+            }
         }
 
         public void StopState()
         {
             for (int i = 0; i < m_Actions.Length; i++)
             {
-                m_Actions[i].EndAction();
+                m_Actions[i].EndAction(m_StateController);
             }
         }
 
@@ -51,7 +50,7 @@ namespace Complete.FSM.States
         {
             for (int i = 0; i < m_Actions.Length; i++)
             {
-                m_Actions[i].Act();
+                m_Actions[i].Act(m_StateController);
             }
         }
 
@@ -59,7 +58,7 @@ namespace Complete.FSM.States
         {
             for (int i = 0; i < m_Transitions.Length; i++)
             {
-                bool decisionSucceeded = m_Transitions[i].decision.Decide(controller);
+                bool decisionSucceeded = m_Transitions[i].decision.Decide(m_StateController);
 
                 if (decisionSucceeded)
                 {

@@ -17,7 +17,7 @@ namespace Complete.FSM.Actions
             m_TankShooting = controller.GetComponent<TankAIShooting>();
         }
 
-        public override void Act()
+        public override void Act(StateController controller)
         {
             //RaycastHit hit;
 
@@ -34,7 +34,7 @@ namespace Complete.FSM.Actions
 
         }
 
-        public override void EndAction()
+        public override void EndAction(StateController controller)
         {            
         }
     }
