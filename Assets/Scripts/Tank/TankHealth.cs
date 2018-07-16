@@ -18,6 +18,19 @@ namespace Complete.Tank
         private float m_CurrentHealth;                      // How much health the tank currently has.
         private bool m_Dead;                                // Has the tank been reduced beyond zero health yet?
 
+        private float m_HealthPercentage
+        {
+            get
+            {
+                return (m_CurrentHealth / m_StartingHealth) * 100;
+            }
+        }
+
+
+        public delegate void TankDamaged(float healthPercentage,Transform m_DamagedBy);
+        public static event TankDamaged OnTankDamaged;
+
+
 
         private void Awake ()
         {
@@ -43,13 +56,19 @@ namespace Complete.Tank
         }
 
 
-        public void TakeDamage (float amount)
+        public void TakeDamage (float amount, Transform target = null)
         {
             // Reduce current health by the amount of damage done.
             m_CurrentHealth -= amount;
 
             // Change the UI elements appropriately.
             SetHealthUI ();
+
+            // Notify subscribers when tank is damaged
+            if (OnTankDamaged != null)
+            {
+                OnTankDamaged.Invoke(m_HealthPercentage,target);
+            }
 
             // If the current health is at or below zero and it has not yet been registered, call OnDeath.
             if (m_CurrentHealth <= 0f && !m_Dead)

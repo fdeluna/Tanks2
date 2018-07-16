@@ -27,14 +27,13 @@ namespace Complete.Tank
             if (m_NavMeshAgent.remainingDistance <= m_NavMeshAgent.stoppingDistance)
             {
                 m_DesiredPosition = m_NavMeshAgent.RandomPointAroundTarget(minRange, maxRange, target);
-
                 m_NavMeshAgent.SetDestination(m_DesiredPosition.ClampVector3ToViewPort(Camera.main, m_MinMargin, m_MaxMargin));
             }
         }
 
         public void Stop(bool stop)
         {
-            m_NavMeshAgent.isStopped = stop;
+            m_NavMeshAgent.isStopped = stop;            
             m_NavMeshAgent.ResetPath();
         }
 

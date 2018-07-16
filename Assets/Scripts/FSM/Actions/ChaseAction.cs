@@ -4,21 +4,14 @@ using UnityEngine;
 namespace Complete.FSM.Actions
 {
     [CreateAssetMenu(menuName = "PluggableAI/Actions/ChaseAction")]
-    public class ChaseAction : StateAction
+    public class ChaseAction : MovementAction
     {
-        private TankAIMovement m_TankAIMovement;
-        
-        public override void Init(StateController controller)
-        {
-            m_TankAIMovement = controller.gameObject.GetComponent<TankAIMovement>();
-        }
-
-        public override void Act(StateController controller)
+        public override void Act()
         {           
-            m_TankAIMovement.Chase(controller.m_TargetTransform);
+            m_TankAIMovement.Chase(m_StateController.m_TargetTransform);
         }
 
-        public override void EndAction(StateController controller)
+        public override void EndAction()
         {
             m_TankAIMovement.Stop(true);
         }

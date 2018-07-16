@@ -18,8 +18,8 @@ namespace Complete.Utils
             }
 
             return hit.position;
-        }
-
+        }        
+                
         public static Vector3 ClampVector3ToViewPort(this Vector3 vector3,Camera camera, float minMargin, float maxMargin)
         {
             Vector3 viewPosition = camera.WorldToViewportPoint(vector3);

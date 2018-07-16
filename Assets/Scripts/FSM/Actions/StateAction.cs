@@ -10,9 +10,15 @@ namespace Complete.FSM.Actions
 {        
     public abstract class StateAction : ScriptableObject
     {
-        public abstract void Init(StateController controller);
-        public abstract void Act(StateController controller);
-        public abstract void EndAction(StateController controller);
+        protected StateController m_StateController;
+
+        public virtual void Init(StateController controller)
+        {
+            m_StateController = controller.gameObject.GetComponent<StateController>();
+        }
+
+        public abstract void Act();
+        public abstract void EndAction();
 
 
         protected IEnumerator WaitSecondsAction(float seconds, Action callBack = null)

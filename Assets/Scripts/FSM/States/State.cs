@@ -31,7 +31,7 @@ namespace Complete.FSM.States
         {
             for (int i = 0; i < m_Actions.Length; i++)
             {
-                m_Actions[i].EndAction(m_StateController);
+                m_Actions[i].EndAction();
             }
         }
 
@@ -39,18 +39,13 @@ namespace Complete.FSM.States
         {
             DoActions();
             CheckTransitions(m_StateController);
-        }
-
-        public void ExitState()
-        {
-
-        }
+        }    
 
         private void DoActions()
         {
             for (int i = 0; i < m_Actions.Length; i++)
             {
-                m_Actions[i].Act(m_StateController);
+                m_Actions[i].Act();
             }
         }
 

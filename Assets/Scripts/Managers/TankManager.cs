@@ -17,16 +17,16 @@ namespace Complete.Managers
 
         public Color m_PlayerColor;                             // This is the color this tank will be tinted.
         public Transform m_SpawnPoint;                          // The position and direction the tank will have when it spawns.
-        public TankType m_TankType;                          // The position and direction the tank will have when it spawns.
+        public TankType m_TankType;                             // Tank controller type PLAYER or AI
         [HideInInspector] public int m_PlayerNumber;            // This specifies which player this the manager for.
         [HideInInspector] public string m_ColoredPlayerText;    // A string that represents the player with their number colored to match their tank.
         [HideInInspector] public GameObject m_Instance;         // A reference to the instance of the tank when it is created.
         [HideInInspector] public int m_Wins;                    // The number of wins this player has so far.
 
 
-        private TankPlayerMovement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
-        private StateController m_TankStateController;
-        private TankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.
+        private TankPlayerMovement m_Movement;                  // Reference to tank's movement script, used to disable and enable control.
+        private StateController m_TankStateController;          // Reference to tank's FSM script, used to disable and enable AI control.    
+        private TankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.        
         private GameObject m_CanvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
         
         public void Setup()
@@ -74,7 +74,7 @@ namespace Complete.Managers
             }
             else
             {
-                m_TankStateController.enabled = false;
+                m_TankStateController.enabled = false;                
             }
             
             m_CanvasGameObject.SetActive(false);
@@ -91,7 +91,7 @@ namespace Complete.Managers
             }
             else
             {
-                m_TankStateController.enabled = true;
+                m_TankStateController.enabled = true;                
             }
 
             m_CanvasGameObject.SetActive(true);

@@ -4,6 +4,7 @@
  **/
 
 using Complete.FSM.States;
+using Complete.Tank;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,31 +13,44 @@ namespace Complete.FSM
 {
     public class StateController : MonoBehaviour
     {
+        [Header("AI Inputs")]
+        public Transform eyes;
+        [Header("States Setup")]
         public State m_InitialState;
         public State m_CurrentState;
-        public Transform eyes;
+        public State m_DamageState;
+        public bool m_AIActive = false;
+
         [HideInInspector] public float m_StateTimeElapsed;
         [HideInInspector] public Transform m_TargetTransform;
+        [HideInInspector] public float m_TankCurrentHealth;
+
 
         private Dictionary<String, State> m_States = new Dictionary<String, State>();
 
-        public void Awake()
+        void Awake()
         {
             m_CurrentState = GetState(m_InitialState);
+        }
+
+        private void OnEnable()
+        {            
+            m_AIActive = true;
+            TankHealth.OnTankDamaged -= OnTankDamaged;
+            TankHealth.OnTankDamaged += OnTankDamaged;
         }
 
         private void OnDisable()
         {
+            m_AIActive = false;
             m_CurrentState = GetState(m_InitialState);
+            TankHealth.OnTankDamaged -= OnTankDamaged;
         }
-
-        public bool m_AIActive = false;
-
+        
         void Update()
         {
             if (!m_AIActive)
                 return;
-
             m_CurrentState.UpdateState();
         }
 
@@ -69,15 +83,15 @@ namespace Complete.FSM
             m_StateTimeElapsed = 0;
         }
 
-        void OnDrawGizmos()
+        public void OnTankDamaged(float percentage, Transform damagedBy)
         {
-            if (m_CurrentState != null && eyes != null)
+            m_TankCurrentHealth = percentage;
+            m_TargetTransform = damagedBy;
+
+            if (m_DamageState != null)
             {
-                Gizmos.color = m_CurrentState.m_SceneGizmoColor;
-                Gizmos.DrawWireSphere(eyes.position, 1);
-                if (m_TargetTransform != null)
-                    Gizmos.DrawWireSphere(m_TargetTransform.position, 1);
-            }
+                TransitionToState(m_DamageState);
+            }            
         }
 
         private State GetState(State stateType)
@@ -98,6 +112,17 @@ namespace Complete.FSM
             }
 
             return state;
+        }
+
+        void OnDrawGizmos()
+        {
+            if (m_CurrentState != null && eyes != null)
+            {
+                Gizmos.color = m_CurrentState.m_SceneGizmoColor;
+                Gizmos.DrawWireSphere(eyes.position, 1);
+                if (m_TargetTransform != null)
+                    Gizmos.DrawWireSphere(m_TargetTransform.position, 1);
+            }
         }
     }
 }
