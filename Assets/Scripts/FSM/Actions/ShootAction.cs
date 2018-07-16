@@ -27,10 +27,5 @@ namespace Complete.FSM.Actions
                 Debug.DrawRay(m_StateController.eyes.position, m_StateController.eyes.forward.normalized * m_AttackRange, Color.red);
             }
         }
-
-        public override void EndAction()
-        {
-
-        }
     }
 }

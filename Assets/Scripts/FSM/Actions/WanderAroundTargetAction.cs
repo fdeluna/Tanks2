@@ -13,10 +13,5 @@ namespace Complete.FSM.Actions
         {
             m_TankAIMovement.Patrol(m_MinRange, m_MaxRange, m_StateController.m_TargetTransform);            
         }
-
-        public override void EndAction()
-        {
-            m_TankAIMovement.Stop(true);
-        }
     }
 }

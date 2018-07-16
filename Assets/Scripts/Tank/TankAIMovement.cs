@@ -30,9 +30,9 @@ namespace Complete.Tank
                 m_NavMeshAgent.SetDestination(m_DesiredPosition.ClampVector3ToViewPort(Camera.main, m_MinMargin, m_MaxMargin));
             }
         }
-
+        
         public void Stop(bool stop)
-        {
+        {            
             m_NavMeshAgent.isStopped = stop;            
             m_NavMeshAgent.ResetPath();
         }
@@ -41,7 +41,7 @@ namespace Complete.Tank
         {
             m_NavMeshAgent.SetDestination(target.position);                   
         }
-
+        
         private void OnDrawGizmos()
         {
             Gizmos.DrawSphere(m_DesiredPosition, 2);

@@ -10,7 +10,7 @@ namespace Complete.FSM.Decisions
         public float m_HealthPercentage = 30;
 
         public override bool Decide(StateController controller)
-        {
+        {            
             return controller.m_TankCurrentHealth >= m_HealthPercentage;
         }
     }

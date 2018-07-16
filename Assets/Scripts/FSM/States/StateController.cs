@@ -34,7 +34,7 @@ namespace Complete.FSM
         }
 
         private void OnEnable()
-        {            
+        {
             m_AIActive = true;
             TankHealth.OnTankDamaged -= OnTankDamaged;
             TankHealth.OnTankDamaged += OnTankDamaged;
@@ -46,7 +46,7 @@ namespace Complete.FSM
             m_CurrentState = GetState(m_InitialState);
             TankHealth.OnTankDamaged -= OnTankDamaged;
         }
-        
+
         void Update()
         {
             if (!m_AIActive)
@@ -58,9 +58,7 @@ namespace Complete.FSM
         {
             if (nextState != null && nextState != m_CurrentState)
             {
-                m_CurrentState.StopState();
                 m_CurrentState = GetState(nextState);
-
                 ResetStateTimeElapsed();
             }
         }
@@ -91,7 +89,7 @@ namespace Complete.FSM
             if (m_DamageState != null)
             {
                 TransitionToState(m_DamageState);
-            }            
+            }
         }
 
         private State GetState(State stateType)

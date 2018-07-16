@@ -27,14 +27,6 @@ namespace Complete.FSM.States
             }
         }
 
-        public void StopState()
-        {
-            for (int i = 0; i < m_Actions.Length; i++)
-            {
-                m_Actions[i].EndAction();
-            }
-        }
-
         public void UpdateState()
         {
             DoActions();

@@ -18,8 +18,7 @@ namespace Complete.FSM.Actions
         }
 
         public abstract void Act();
-        public abstract void EndAction();
-
+        
 
         protected IEnumerator WaitSecondsAction(float seconds, Action callBack = null)
         {

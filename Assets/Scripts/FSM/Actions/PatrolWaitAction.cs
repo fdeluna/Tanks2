@@ -44,10 +44,5 @@ namespace Complete.FSM.Actions
 
             }
         }
-
-        public override void EndAction()
-        {
-            m_TankAIMovement.Stop(true);
-        }
     }
 }
