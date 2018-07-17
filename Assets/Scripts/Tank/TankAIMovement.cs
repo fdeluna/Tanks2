@@ -25,9 +25,11 @@ namespace Complete.Tank
 
         public void Patrol(float minRange = 0, float maxRange = 0, Transform target = null)
         {
+            Vector3 targetPosition = target == null ? m_NavMeshAgent.transform.position : target.position;
+
             if (m_NavMeshAgent.remainingDistance <= m_NavMeshAgent.stoppingDistance || !Utils.IsPointInViewPort(Camera.main, m_DesiredPosition))
             {
-                m_DesiredPosition = m_NavMeshAgent.RandomPointAroundTarget(minRange, maxRange, target).ClampVector3ToViewPort(Camera.main, m_MinMargin, m_MaxMargin);
+                m_DesiredPosition = m_NavMeshAgent.RandomPointAroundTarget(minRange, maxRange, targetPosition).ClampVector3ToViewPort(Camera.main, m_MinMargin, m_MaxMargin);
                 m_DesiredPosition.y = 0;
                 m_NavMeshAgent.SetDestination(m_DesiredPosition);                
             }            
@@ -44,15 +46,16 @@ namespace Complete.Tank
             m_NavMeshAgent.SetDestination(target.position);
         }
 
-        public void SetNavAgentVelocity(Vector3 velocity)
+        public void Flee(Transform target,float range)
         {
-            m_NavMeshAgent.velocity = velocity;
-        }
-
-        public void SetObstacleRadius(float radius)
-        {            
-            m_NavMeshAgent.radius = radius;
-        }
+            if (m_NavMeshAgent.remainingDistance <= m_NavMeshAgent.stoppingDistance)
+            {
+                Vector3 direction = transform.position + (target.position- transform.position) * range;
+                m_DesiredPosition = m_NavMeshAgent.RandomPointAroundTarget(range, range, direction).ClampVector3ToViewPort(Camera.main, m_MinMargin, m_MaxMargin);
+                m_DesiredPosition.y = 0;
+                m_NavMeshAgent.SetDestination(m_DesiredPosition);
+            }
+        }        
 
         private void OnDrawGizmos()
         {
