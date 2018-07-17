@@ -1,5 +1,4 @@
-﻿using Complete.Utils;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Complete.Tank
 {
@@ -58,7 +57,7 @@ namespace Complete.Tank
 
             // Apply this movement to the rigidbody's position.
             Vector3 desiredPosition = m_Rigidbody.position + movement;
-
+            
             m_Rigidbody.MovePosition(desiredPosition.ClampVector3ToViewPort(Camera.main, m_MinMargin,m_MaxMargin));            
         }
 

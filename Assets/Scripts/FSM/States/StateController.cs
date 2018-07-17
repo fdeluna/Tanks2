@@ -27,12 +27,7 @@ namespace Complete.FSM
 
 
         private Dictionary<String, State> m_States = new Dictionary<String, State>();
-
-        void Awake()
-        {
-            m_CurrentState = GetState(m_InitialState);
-        }
-
+        
         private void OnEnable()
         {
             m_AIActive = true;
