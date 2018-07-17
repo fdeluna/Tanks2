@@ -34,6 +34,30 @@ namespace Complete.Tank
                 m_NavMeshAgent.SetDestination(m_DesiredPosition);                
             }            
         }
+        public void Chase(Transform target)
+        {
+            m_NavMeshAgent.SetDestination(target.position);
+        }
+
+        public void Flee(Transform target, float range)
+        {
+            if (m_NavMeshAgent.remainingDistance <= m_NavMeshAgent.stoppingDistance)
+            {
+                Vector3 direction = transform.position + (target.position - transform.position) * range;
+                m_DesiredPosition = m_NavMeshAgent.RandomPointAroundTarget(range, range, direction).ClampVector3ToViewPort(Camera.main, m_MinMargin, m_MaxMargin);
+                m_DesiredPosition.y = 0;
+                m_NavMeshAgent.SetDestination(m_DesiredPosition);
+            }
+        }
+
+        public void LookAtTarget(Transform target)
+        {
+            if (target != null)
+            {
+                transform.LookAt(target);
+            }
+        }
+           
 
         public void Stop(bool stop)
         {
@@ -41,21 +65,7 @@ namespace Complete.Tank
             m_NavMeshAgent.ResetPath();
         }
 
-        public void Chase(Transform target)
-        {
-            m_NavMeshAgent.SetDestination(target.position);
-        }
-
-        public void Flee(Transform target,float range)
-        {
-            if (m_NavMeshAgent.remainingDistance <= m_NavMeshAgent.stoppingDistance)
-            {
-                Vector3 direction = transform.position + (target.position- transform.position) * range;
-                m_DesiredPosition = m_NavMeshAgent.RandomPointAroundTarget(range, range, direction).ClampVector3ToViewPort(Camera.main, m_MinMargin, m_MaxMargin);
-                m_DesiredPosition.y = 0;
-                m_NavMeshAgent.SetDestination(m_DesiredPosition);
-            }
-        }        
+      
 
         private void OnDrawGizmos()
         {

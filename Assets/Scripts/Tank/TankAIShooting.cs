@@ -5,8 +5,7 @@ namespace Complete.Tank
 {
     public class TankAIShooting : TankShooting
     {
-        public float m_RecoveryTime = 0.5f;
-        [HideInInspector] public bool fire = false;
+        public float m_RecoveryTime = 0.5f;        
 
         private float m_fireForce = 0;
 
@@ -22,6 +21,7 @@ namespace Complete.Tank
 
         public IEnumerator FireCO()
         {
+            m_Fired = true;
             PlaySFX();
             while (m_CurrentLaunchForce < m_fireForce)
             {
@@ -32,7 +32,7 @@ namespace Complete.Tank
 
             Fire();
             m_AimSlider.value = 0;
-            yield return new WaitForSeconds(m_RecoveryTime);            
+            yield return new WaitForSeconds(m_RecoveryTime);
             m_Fired = false;
         }
     }

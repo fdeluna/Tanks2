@@ -19,15 +19,14 @@ namespace Complete.FSM
         public State m_InitialState;
         public State m_CurrentState;
         public State m_DamageState;
-        public bool m_AIActive = false;
 
         [HideInInspector] public float m_StateTimeElapsed;
         [HideInInspector] public Transform m_TargetTransform;
         [HideInInspector] public float m_TankCurrentHealth;
 
-
         private Dictionary<String, State> m_States = new Dictionary<String, State>();
-        
+        private bool m_AIActive = false;
+
         private void OnEnable()
         {
             m_AIActive = true;
