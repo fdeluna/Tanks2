@@ -8,6 +8,7 @@ namespace Complete.Controllers
 
         public float m_DampTime = 0.2f;                 // Approximate time for the camera to refocus.
         public float m_ScreenEdgeBuffer = 4f;           // Space between the top/bottom most target and the screen edge.
+        // CE-101
         [Header("Camera Zoom")]
         public float m_MaxSize = 17f;                   // The biggest orthographic size the camera can be.
         public float m_MinSize = 6.5f;                  // The smallest orthographic size the camera can be.
@@ -51,7 +52,8 @@ namespace Complete.Controllers
             Vector3 movePosition = Vector3.SmoothDamp(transform.position, m_DesiredPosition, ref m_MoveVelocity, m_DampTime);
 
             transform.position = movePosition;
-                        
+
+            // CE-101
             // Apply Boundaires
             Vector3 applyBoundaires = transform.position;
             applyBoundaires.x = Mathf.Clamp(applyBoundaires.x, _leftBoundry.x, _rightBoundry.x);
@@ -94,7 +96,7 @@ namespace Complete.Controllers
         {
             // Find the required size based on the desired position and smoothly transition to that size.
             float requiredSize = FindRequiredSize();
-
+            // CE-101
             m_Camera.orthographicSize = Mathf.SmoothDamp(m_Camera.orthographicSize, requiredSize, ref m_ZoomSpeed, m_DampTime);
         }
 
@@ -148,10 +150,11 @@ namespace Complete.Controllers
             m_Camera.orthographicSize = FindRequiredSize();
         }
         /// <summary>
+        /// CE-101
         /// Viewport projection  to scene to get camera limits
         /// </summary>
         private void SetWorldBoundaires()
-        {            
+        {
             RaycastHit hitTop;
             RaycastHit hitBottom;
             RaycastHit hitRight;
@@ -165,9 +168,10 @@ namespace Complete.Controllers
             _topBoundry = hitTop.point;
             _bottomBoundry = hitBottom.point;
             _rightBoundry = hitRight.point;
-            _leftBoundry = hitLeft.point;                          
+            _leftBoundry = hitLeft.point;
         }
 
+        //CE-101
         void OnDrawGizmos()
         {
             // boundaries Gizmos                                           
@@ -182,7 +186,7 @@ namespace Complete.Controllers
             Gizmos.DrawSphere(_bottomBoundry, 2);
             Gizmos.DrawSphere(_rightBoundry, 2);
             Gizmos.DrawSphere(_leftBoundry, 2);
- 
+
             // Zoom Gizmos            
             // Max Camera size
             Gizmos.color = Color.red;
