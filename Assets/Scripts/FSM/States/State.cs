@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace Complete.FSM.States
 {
+    /// <summary>
+    /// Scriptable objet to define state
+    /// </summary>
     [CreateAssetMenu(menuName = "PluggableAI/State")]
     public class State : ScriptableObject
     {
@@ -15,7 +18,6 @@ namespace Complete.FSM.States
         public Color m_SceneGizmoColor = Color.grey;
 
         private StateController m_StateController;
-
 
         public void Init(StateController controller)
         {

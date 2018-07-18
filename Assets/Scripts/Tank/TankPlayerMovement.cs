@@ -2,6 +2,9 @@
 
 namespace Complete.Tank
 {
+    /// <summary>
+    ///  Players inputs for Tank movement
+    /// </summary>
     public class TankPlayerMovement : TankMovement
     {
         public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
@@ -19,7 +22,6 @@ namespace Complete.Tank
             m_MovementAxisName = "Vertical" + m_PlayerNumber;
             m_TurnAxisName = "Horizontal" + m_PlayerNumber;
         }
-
 
         protected override void Update()
         {
@@ -48,8 +50,6 @@ namespace Complete.Tank
             m_TurnInputValue = 0f;
         }
 
-
-
         private  void Move()
         {            
             // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
@@ -60,7 +60,6 @@ namespace Complete.Tank
             
             m_Rigidbody.MovePosition(desiredPosition.ClampVector3ToViewPort(Camera.main, m_MinMargin,m_MaxMargin));            
         }
-
 
         private  void Turn()
         {
@@ -73,6 +72,5 @@ namespace Complete.Tank
             // Apply this rotation to the rigidbody's rotation.
             m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
         }
-
     }
 }

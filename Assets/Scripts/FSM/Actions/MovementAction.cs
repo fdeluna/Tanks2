@@ -1,10 +1,10 @@
 ﻿using Complete.Tank;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Complete.FSM.Actions
 {
+    /// <summary>
+    ///  Base class for movements actions
+    /// </summary>
     public abstract class MovementAction : StateAction
     {
         protected TankAIMovement m_TankAIMovement;

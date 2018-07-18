@@ -3,12 +3,19 @@ using UnityEngine;
 
 namespace Complete.Tank
 {
+    /// <summary>
+    ///  AI inputs for Tank shooting
+    /// </summary>
     public class TankAIShooting : TankShooting
     {
-        public float m_RecoveryTime = 0.5f;        
+        public float m_RecoveryTime = 0.5f;        // Tank fire rate
 
-        private float m_fireForce = 0;
+        private float m_fireForce = 0; 
 
+        /// <summary>
+        /// Ai tank shooting
+        /// </summary>
+        /// <param name="force"> shooting force</param>
         public void Shoot(float force)
         {
             if (!m_Fired)
@@ -19,7 +26,11 @@ namespace Complete.Tank
             }
         }
 
-        public IEnumerator FireCO()
+        /// <summary>
+        ///  Coroutine to simulate player input
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator FireCO()
         {
             m_Fired = true;
             PlaySFX();

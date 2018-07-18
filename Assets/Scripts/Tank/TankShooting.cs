@@ -3,10 +3,13 @@ using UnityEngine.UI;
 
 namespace Complete.Tank
 {
+    /// <summary>
+    /// Base class for tank shooting
+    /// </summary>
     public class TankShooting : MonoBehaviour
     {
         public int m_PlayerNumber = 1;              // Used to identify the different players.        
-        public ShellExplosion m_Shell;                   // Prefab of the shell.
+        public ShellExplosion m_Shell;              // Prefab of the shell.
         public Transform m_FireTransform;           // A child of the tank where the shells are spawned.
         public Slider m_AimSlider;                  // A child of the tank that displays the current launch force.
         public AudioSource m_ShootingAudio;         // Reference to the audio source used to play the shooting audio. NB: different to the movement audio source.
@@ -30,6 +33,7 @@ namespace Complete.Tank
 
         private void OnDisable()
         {
+            // Reset fire flag
             m_Fired = false;
         }
 

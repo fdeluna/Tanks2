@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Complete.FSM.Decisions
 {
+    /// <summary>
+    /// Decision to check if tank health is over a given value
+    /// </summary>
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/TankHealthOverValue")]
     public class TankHealthOverValueDecision : Decision
     {

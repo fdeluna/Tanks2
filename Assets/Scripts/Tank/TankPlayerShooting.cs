@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 namespace Complete.Tank
 {
+    /// <summary>
+    ///  Players inputs for Tank shooting
+    /// </summary>
     public class TankPlayerShooting : TankShooting
     {        
         private string m_FireButton;                // The input axis that is used for launching shells.

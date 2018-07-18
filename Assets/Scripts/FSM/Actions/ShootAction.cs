@@ -4,14 +4,16 @@ using UnityEngine;
 
 namespace Complete.FSM.Actions
 {
+    /// <summary>
+    ///  State action to shoot while moving
+    /// </summary>
     [CreateAssetMenu(menuName = "PluggableAI/Actions/ShootAction")]
     public class ShootAction : MovementAction
     {
         public float m_AttackRange;
         public LayerMask m_TargetMask;
 
-        private TankAIShooting m_TankShooting;
-        private bool fire = false;
+        private TankAIShooting m_TankShooting;        
 
         public override void Init(StateController controller)
         {

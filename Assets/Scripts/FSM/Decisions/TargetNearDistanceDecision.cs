@@ -2,6 +2,9 @@
 
 namespace Complete.FSM.Decisions
 {
+    /// <summary>
+    /// Decision to check if target is near us
+    /// </summary>
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/TargetNearDistance")]
     public class TargetNearDistanceDecision : Decision
     {

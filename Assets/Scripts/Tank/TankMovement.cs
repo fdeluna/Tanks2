@@ -2,6 +2,9 @@
 
 namespace Complete.Tank
 {
+    /// <summary>
+    ///  Base class for everything related with the Tank movement
+    /// </summary>
     public class TankMovement : MonoBehaviour
     {                
         public float m_Speed = 12f;                 // How fast the tank moves forward and back.
@@ -11,10 +14,10 @@ namespace Complete.Tank
         public AudioClip m_EngineDriving;           // Audio to play when the tank is moving.
         public float m_PitchRange = 0.2f;           // The amount by which the pitch of the engine noises can vary.        
                 
-        protected Rigidbody m_Rigidbody;              // Reference used to move the tank.                
-        protected bool m_Moving = false;
-        protected float m_MinMargin = 0.05f;
-        protected float m_MaxMargin = 0.95f;
+        protected Rigidbody m_Rigidbody;            // Reference used to move the tank.                
+        protected bool m_Moving = false;            // Flag to know when the tank is moving to play the SFX
+        protected float m_MinMargin = 0.05f;        // Viewport min margin to clamp Tank movement to the screen    
+        protected float m_MaxMargin = 0.95f;        // Viewport max margin to clamp Tank movement to the screen    
 
         private float m_OriginalPitch;              // The pitch of the audio source at the start of the scene.
         private ParticleSystem[] m_particleSystems; // References to all the particles systems used by the Tanks        
@@ -23,7 +26,6 @@ namespace Complete.Tank
         {
             m_Rigidbody = GetComponent<Rigidbody>();
         }
-
 
         protected virtual void OnEnable()
         {            
@@ -37,7 +39,6 @@ namespace Complete.Tank
             }            
         }
 
-
         protected void OnDisable()
         {
             // When the tank is turned off, set it to kinematic so it stops moving.
@@ -50,19 +51,16 @@ namespace Complete.Tank
             }
         }
 
-
         protected virtual void Start()
         {            
             // Store the original pitch of the audio source.
             m_OriginalPitch = m_MovementAudio.pitch;            
         }
 
-
         protected virtual void Update()
         {            
             EngineAudio();
         }
-
         
         private void EngineAudio()
         {

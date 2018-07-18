@@ -1,13 +1,15 @@
-﻿using Complete.Tank;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Complete.FSM.Actions
 {
+    /// <summary>
+    ///  State action to wander around target
+    /// </summary>
     [CreateAssetMenu(menuName = "PluggableAI/Actions/WanderAroundTargetAction")]
     public class WanderAroundTargetAction : MovementAction
     {
-        public float m_MinRange = 5;
-        public float m_MaxRange = 15;             
+        public float m_MinRange = 5;    // Min range to wander around
+        public float m_MaxRange = 15;   // Max range to wander around          
                                    
         public override void Act()
         {

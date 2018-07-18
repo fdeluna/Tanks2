@@ -136,7 +136,6 @@ namespace Complete.Controllers
             return size;
         }
 
-
         public void SetStartPositionAndSize()
         {
             // Find the desired position.
@@ -148,7 +147,9 @@ namespace Complete.Controllers
             // Find and set the required size of the camera.
             m_Camera.orthographicSize = FindRequiredSize();
         }
-
+        /// <summary>
+        /// Viewport projection  to scene to get camera limits
+        /// </summary>
         private void SetWorldBoundaires()
         {            
             RaycastHit hitTop;

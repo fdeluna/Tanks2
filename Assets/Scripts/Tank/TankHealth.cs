@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 namespace Complete.Tank
 {
+    /// <summary>
+    /// Class for manage tank health and tank health UI
+    /// </summary>
     public class TankHealth : MonoBehaviour
     {
         public float m_StartingHealth = 100f;               // The amount of health each tank starts with.
@@ -18,19 +21,16 @@ namespace Complete.Tank
         public  float m_CurrentHealth;                      // How much health the tank currently has.
         private bool m_Dead;                                // Has the tank been reduced beyond zero health yet?
 
-        private float m_HealthPercentage
+        private float m_HealthPercentage                    // Current Health in percentage
         {
             get
             {
-                return (m_CurrentHealth / m_StartingHealth) * 100;
+                return (m_CurrentHealth / m_StartingHealth) * 100; 
             }
         }
 
-
-        public delegate void TankDamaged(float healthPercentage,Transform m_DamagedBy);
-        public static event TankDamaged OnTankDamaged;
-
-
+        public delegate void TankDamaged(float healthPercentage,Transform m_DamagedBy); 
+        public static event TankDamaged OnTankDamaged;     // Event invoke when tank receive damage
 
         private void Awake ()
         {

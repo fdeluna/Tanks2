@@ -7,7 +7,10 @@ using System.Collections;
 using UnityEngine;
 
 namespace Complete.FSM.Actions
-{        
+{
+    /// <summary>
+    /// Abstract to define states actions
+    /// </summary>
     public abstract class StateAction : ScriptableObject
     {
         protected StateController m_StateController;

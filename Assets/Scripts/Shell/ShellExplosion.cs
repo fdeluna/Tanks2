@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Complete.Tank
 {
+    /// <summary>
+    /// Explosion class to notify damage 
+    /// </summary>
     public class ShellExplosion : MonoBehaviour
     {
         public LayerMask m_TankMask;                        // Used to filter what the explosion affects, this should be set to "Players".

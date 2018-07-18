@@ -2,6 +2,9 @@
 
 namespace Complete.FSM.Decisions
 {
+    /// <summary>
+    /// Decision to check if tank can see player within range and angle
+    /// </summary>
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/PlayerVisible")]
     public class PlayerDetectedDecision : Decision
     {

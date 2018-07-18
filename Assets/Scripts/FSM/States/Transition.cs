@@ -8,6 +8,9 @@ using Complete.FSM.States;
 
 namespace Complete.FSM
 {
+    /// <summary>
+    /// Class to define transition between states
+    /// </summary>
     [System.Serializable]
     public class Transition
     {

@@ -11,6 +11,9 @@ using UnityEngine;
 
 namespace Complete.FSM
 {
+    /// <summary>
+    /// Class to manage FSM
+    /// </summary>
     public class StateController : MonoBehaviour
     {
         [Header("AI Inputs")]

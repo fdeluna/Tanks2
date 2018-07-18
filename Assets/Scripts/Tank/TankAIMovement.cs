@@ -3,10 +3,13 @@ using UnityEngine.AI;
 
 namespace Complete.Tank
 {
+    /// <summary>
+    ///  TankAI movement types
+    /// </summary>
     public class TankAIMovement : TankMovement
     {
-        private NavMeshAgent m_NavMeshAgent;
-        private Vector3 m_DesiredPosition;
+        private NavMeshAgent m_NavMeshAgent;   // Reference to Navmesh agent
+        private Vector3 m_DesiredPosition;     // Desired position to move
 
         protected override void Awake()
         {
@@ -23,6 +26,12 @@ namespace Complete.Tank
             m_NavMeshAgent.nextPosition = m_NavMeshAgent.nextPosition.ClampVector3ToViewPort(Camera.main, m_MinMargin, m_MaxMargin);
         }
 
+        /// <summary>
+        /// Patrol around target within range
+        /// </summary>
+        /// <param name="minRange"> min range to patrol</param>
+        /// <param name="maxRange"> max range to patrol </param>
+        /// <param name="target"> target to patrol around </param>
         public void Patrol(float minRange = 0, float maxRange = 0, Transform target = null)
         {
             Vector3 targetPosition = target == null ? m_NavMeshAgent.transform.position : target.position;
@@ -34,11 +43,21 @@ namespace Complete.Tank
                 m_NavMeshAgent.SetDestination(m_DesiredPosition);                
             }            
         }
+
+        /// <summary>
+        /// Chase target
+        /// </summary>
+        /// <param name="target"> Target to chase </param>
         public void Chase(Transform target)
         {
             m_NavMeshAgent.SetDestination(target.position);
         }
 
+        /// <summary>
+        /// Run away from target with range
+        /// </summary>
+        /// <param name="target"> target to run away from </param>
+        /// <param name="range"> range to run away  </param>
         public void Flee(Transform target, float range)
         {
             if (m_NavMeshAgent.remainingDistance <= m_NavMeshAgent.stoppingDistance)
@@ -50,15 +69,11 @@ namespace Complete.Tank
             }
         }
 
-        public void LookAtTarget(Transform target)
-        {
-            if (target != null)
-            {
-                transform.LookAt(target);
-            }
-        }
-           
 
+        /// <summary>
+        /// Stops the Navmesh agent
+        /// </summary>
+        /// <param name="stop"> flag to stop the Navmesh agent</param>
         public void Stop(bool stop)
         {
             m_NavMeshAgent.isStopped = stop;
@@ -66,7 +81,6 @@ namespace Complete.Tank
         }
 
       
-
         private void OnDrawGizmos()
         {
             Gizmos.DrawSphere(m_DesiredPosition, 2);

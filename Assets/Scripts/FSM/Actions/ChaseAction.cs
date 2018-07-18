@@ -1,8 +1,10 @@
-﻿using Complete.Tank;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Complete.FSM.Actions
 {
+    /// <summary>
+    /// State action to chase target
+    /// </summary>
     [CreateAssetMenu(menuName = "PluggableAI/Actions/ChaseAction")]
     public class ChaseAction : MovementAction
     {
